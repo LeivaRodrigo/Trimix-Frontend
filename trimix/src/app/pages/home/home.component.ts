@@ -1,6 +1,6 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { PersonaDTO } from 'src/app/models/PersonaDTO';
 import { PersonaService } from 'src/app/services/persona.service';
 import { TIPODOCS } from 'src/app/constants';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private form: FormBuilder,
-    private router: Router,
+    private toastr: ToastrService,
     private personaService: PersonaService
   ) {}
 
@@ -40,10 +40,12 @@ export class HomeComponent implements OnInit {
   }
 
   buscarPersonas() {
-    // let tipoDocForm = this.filtro.get('tipoDoc').value;
-    // if(this.filtro.get('tipoDoc').value == this.tipoDocs[0]){
-
-    // }
+    //Settea sin valor para que la query busque todos
+    if (this.filtro.get('tipoDoc').value == this.tipoDocs[0]) {
+      this.filtro.patchValue({
+        tipoDoc: '',
+      });
+    }
     this.personaService.buscarPersonas(this.filtro.value).subscribe(
       (personas) => {
         this.listaPersonas = personas;
@@ -51,8 +53,23 @@ export class HomeComponent implements OnInit {
       },
       (error) => {
         console.error(error);
+        this.toastr.error('Error al buscar las personas');
       }
     );
   }
 
+  eliminar(persona: PersonaDTO) {
+    if (confirm('Estas seguro que queres eliminar esta persona?')) {
+      this.personaService.delete(persona.perId).subscribe(
+        (response) => {
+          this.toastr.success('Persona eliminada correctamente');
+          this.buscarPersonas();
+        },
+        (error) => {
+          console.error(error);
+          this.toastr.error('Error al eliminar la persona');
+        }
+      );
+    }
+  }
 }

@@ -26,7 +26,7 @@ export class SaveUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.personaForm = this.form.group({
-      perId: [null, Validators.required],
+      perId: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
       perApellido: [null, Validators.required],
       perFechaNacimiento: [null, Validators.required],
       perNombre: [null, Validators.required],

@@ -25,4 +25,8 @@ export class PersonaService {
   public buscarPersonas(filtro: any): Observable<any> {
     return this.httpClient.post(this.API_SERVER + 'filter', filtro);
   }
+
+  public delete(idPersona: number): Observable<any> {
+    return this.httpClient.delete(this.API_SERVER + 'delete/' + idPersona);
+  }
 }
