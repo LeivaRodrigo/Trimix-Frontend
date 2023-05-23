@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PersonaService } from '../services/persona.service';
+import { PersonaService } from '../../services/persona.service';
 import { TIPODOCS } from 'src/app/constants';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonaDTO } from '../models/PersonaDTO';
+import { PersonaDTO } from '../../models/PersonaDTO';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
