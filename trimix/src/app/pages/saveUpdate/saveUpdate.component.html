@@ -1,0 +1,97 @@
+<div class="container container-persona">
+  <div class="row p-4">
+    <div class="card rounded-0">
+      <div class="card-body">
+        <h3 class="card-title">Datos Generales</h3>
+        <hr />
+        <form [formGroup]="personaForm" (ngSubmit)="(save)">
+          <div class="row row-form">
+            <div class="col-4">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  formControlName="perNombre"
+                  class="form-control"
+                  placeholder="Nombre..."
+                />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label>Apellido</label>
+                <input
+                  type="text"
+                  formControlName="perApellido"
+                  class="form-control"
+                  placeholder="Apellido..."
+                />
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label>Numero Documento</label>
+                <input
+                  type="text"
+                  formControlName="perNumeroDocumento"
+                  class="form-control"
+                  placeholder="Numero Documento..."
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row row-form pt-2">
+            <div class="col-4">
+              <div class="form-group">
+                <label>Tipo Documento</label>
+                <select
+                  name="tipoDoc"
+                  formControlName="perTipoDocumento"
+                  class="form-select"
+                >
+                  <option selected disabled>Seleccione...</option>
+                  <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc">
+                    {{ tipoDoc }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label>Fecha de Nacimiento</label>
+                <div
+                  class="date"
+                  data-date="12-02-2012"
+                  data-date-format="dd-mm-yyyy"
+                >
+                  <input
+                    class="form-control"
+                    formControlName="perFechaNacimiento"
+                    size="16"
+                    type="date"
+                    value="12-02-2012"
+                    placeholder="Fecha..."
+                  />
+                  <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-12 d-flex flex-row justify-content-between px-0 mt-5">
+      <a
+        class="btn btn-primary rounded-0"
+        routerLink="/"
+        [skipLocationChange]="true"
+      >
+        <i class="bi bi-arrow-left-short"></i>Volver</a
+      >
+      <button class="btn btn-success rounded-0" (click)="save()">
+        <i class="bi bi-save"></i>Guardar
+      </button>
+    </div>
+  </div>
+</div>

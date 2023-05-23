@@ -1,0 +1,110 @@
+<div class="container container-persona">
+  <div class="row">
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <h1 class="text-secondary">Personas</h1>
+      <a
+        class="btn btn-success rounded-0"
+        routerLink="/saveUpdate"
+        [skipLocationChange]="true"
+      >
+        <i class="bi bi-plus"></i>
+        Nuevo
+      </a>
+    </div>
+  </div>
+
+  <div class="row p-4">
+    <div class="card mb-5 rounded-0">
+      <div class="card-body">
+        <h3 class="card-title">Filtros</h3>
+        <hr />
+        <form [formGroup]="filtro" (ngSubmit)="buscarPersonas()">
+          <div class="form-group">
+            <div class="row my-2">
+              <div class="col-3">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  formControlName="nombre"
+                  class="form-control"
+                  placeholder="Nombre..."
+                />
+              </div>
+              <div class="col-3">
+                <label>Tipo Documento</label>
+                <select
+                  name="tipoDoc"
+                  formControlName="tipoDoc"
+                  class="form-select"
+                >
+                  <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc">
+                    {{ tipoDoc }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary rounded-0">
+                <i class="bi bi-search"></i>Buscar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row p-4">
+    <div class="card px-4 mt-5 rounded-0">
+      <div
+        class="d-flex flex-row justify-content-between align-items-center mt-3"
+      >
+        <h3>Personas</h3>
+        <button type="submit" class="btn btn-primary rounded-0">
+          <i class="bi bi-funnel-fill"></i>
+        </button>
+      </div>
+      <hr />
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Número Documento</th>
+            <th scope="col">Tipo Documento</th>
+            <th scope="col">Fecha Nacimiento</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let persona of listaPersonas">
+          <tr>
+            <td scope="row">{{ persona.perId }}</td>
+            <td>{{ persona.perNombre }}</td>
+            <td>{{ persona.perApellido }}</td>
+            <td>{{ persona.perNumeroDocumento }}</td>
+            <td>{{ persona.perTipoDocumento }}</td>
+            <td>{{ persona.perFechaNacimiento | date : "M/d/yyyy" }}</td>
+            <td class="d-flex flex-row justify-content-between">
+              <a
+                class="btn btn-primary rounded-0"
+                [routerLink]="'/saveUpdate/' + persona.perId"
+                [skipLocationChange]="true"
+                title="Editar"
+                ><i class="bi bi-pencil-square"></i
+              ></a>
+              <a
+                class="btn btn-danger rounded-0"
+                title="Eliminar"
+                (click)="eliminar(persona)"
+                ><i class="bi bi-trash3-fill"></i
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
